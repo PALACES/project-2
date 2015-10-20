@@ -4,7 +4,7 @@
 //// GLOBALS:  pool table, 3 colored balls
 
 String title=  "ELASTIC COLLISIONS  (x5eve.java)";
-String news=   "Use 'r' key to reset.";
+String news=   "Click 'Reset' to Reset";
 String author=  "Alex Reid";
 
 
@@ -18,7 +18,7 @@ float bluX, bluY, bluDX, bluDY;
 float buttonX = width/4;
 float buttonY = height/4;
 float buttonW = 100;
-float buttonH = 80;
+float buttonH = 100;
 
 
 //// SETUP:  size and table
@@ -73,7 +73,7 @@ void showButton() {
   fill(255);
   rect(buttonX, buttonY, buttonW, buttonH);
   fill(0);
-  text ("Reset!", buttonX+15, buttonY);
+  text ("Reset!", buttonX+20, buttonY+40);
 }
 //// ACTION:  bounce off walls, collisions
 void bounce() {
