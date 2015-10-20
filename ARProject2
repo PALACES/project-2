@@ -11,10 +11,15 @@ String author=  "Alex Reid";
 float left, right, top, bottom;
 float middle;
 
-float cueX,  cueY,  cueDX,  cueDY;
 float redX,  redY,  redDX,  redDY;
 float yelX,  yelY,  yelDX,  yelDY;
 float bluX, bluY, bluDX, bluDY;
+
+float buttonX = width/4;
+float buttonY = height/4;
+float buttonW = 100;
+float buttonH = 80;
+
 
 //// SETUP:  size and table
 void setup() {
@@ -28,18 +33,17 @@ void setup() {
   reset();
  }
  void reset() {
-   cueX=  left + (right-left) / 4;
-   cueY=  top + (bottom-top) / 2;
+
    // Random positions.
    redX=  random( middle,right );   redY=  random( top, bottom );
    yelX=  random( middle,right );   yelY=  random( top, bottom );
    bluX=  random( middle,right );   bluY=  random( top, bottom );
-   cueX=  random( middle,right );   cueY=  random( top, bottom);
+  
    // Random speeds
    redDX=  random( 1,3 );   redDY=  random( 1,3 );
    yelDX=  random( 1,3 );   redDY=  random( 1,3 );
    bluDX=  random( 1,3 );   bluDY=  random( 1,3 );
-   cueDX=  random( 1,3 );   cueDY=  random( 1,3 );
+   
  }
 
 
@@ -48,6 +52,7 @@ void draw() {
   background( 250,250,200 );
   rectMode( CORNERS );
   table( left, top, right, bottom );
+  showButton();
   bounce();
   collisions();
   show();
@@ -64,6 +69,12 @@ void table( float left, float top, float right, float bottom ) {
   strokeWeight(1);
 }
 
+void showButton() {
+  fill(255);
+  rect(buttonX, buttonY, buttonW, buttonH);
+  fill(0);
+  text ("Reset!", buttonX+15, buttonY);
+}
 //// ACTION:  bounce off walls, collisions
 void bounce() {
   redX += redDX;  if ( redX<left || redX>right ) redDX *= -1;
@@ -71,9 +82,6 @@ void bounce() {
   
   yelX += yelDX;  if ( yelX<left || yelX>right ) yelDX *= -1;
   yelY += yelDY;  if ( yelY<top || yelY>bottom ) yelDY *=  -1;
-
-  cueX += cueDX; if ( cueX<left || cueX>right ) cueDX *= -1;
-  cueY += cueDY; if ( cueY<top || cueY>bottom ) cueDY *= -1;
 
   bluX += bluDX; if ( bluX<left || bluX>right ) bluDX *= -1;
   bluY += bluDY; if ( bluY<top || bluY>bottom ) bluDY *= -1;
@@ -85,22 +93,10 @@ void collisions() {
   if ( dist( redX,redY, yelX,yelY ) < 30 ) {
     tmp=yelDX;  yelDX=redDX;  redDX=tmp;
     tmp=yelDY;  yelDY=redDY;  redDY=tmp;
-   }  
-  if (dist(bluX,bluY, cueX, cueY) < 30 ) {
-    tmp=cueDX; cueDX=bluDX; bluDX=tmp;
-    tmp=cueDY; cueDY=bluDY; bluDY=tmp;
    }
    if (dist(redX,redY, bluX, bluY) < 30 ) {
     tmp=bluDX; bluDX=redDX; redDX=tmp;
     tmp=bluDY; bluDY=redDY; redDY=tmp;
-   }
-  if (dist(cueX,cueY, yelX, yelY) < 30 ) {
-    tmp=yelDX; yelDX=cueDX; cueDX=tmp;
-    tmp=yelDY; yelDY=cueDY; cueDY=tmp;
-   }
-  if (dist(cueX,cueY, redX, redY) < 30 ) {
-    tmp=redDX; redDX=cueDX; cueDX=tmp;
-    tmp=redDY; redDY=cueDY; cueDY=tmp;
 
    }
    if (dist(bluX,bluY, yelX, yelY) < 30 ) {
@@ -115,7 +111,6 @@ void show() {
   fill( 255,0,0 );    ellipse( redX,redY, 30,30 );
   fill( 255,255,0 );  ellipse( yelX,yelY, 30,30 );
   fill( 0,0,255 );    ellipse( bluX,bluY, 30,30 );
-  fill( 255,255,255 );    ellipse( cueX,cueY, 30,30 );
 }
 void messages() {
   fill(0);
@@ -124,10 +119,11 @@ void messages() {
   text( author, 10, height-10 );
 }
 
+void mousePressed() {
+ if ((mouseX < buttonX + buttonW/2) &&
+    (mouseX > buttonX - buttonW/2) &&
+    (mouseY < buttonY + buttonY/2) &&
+    (mouseY > buttonY - buttonY/2))
+ reset();
 
-//// HANDLERS:  keys, click
-void keyPressed() {
-  if (key == 'r') {
-    reset();
-  }
 }
