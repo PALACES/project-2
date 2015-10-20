@@ -17,7 +17,7 @@ float bluX, bluY, bluDX, bluDY;
 
 float buttonX = width/4;
 float buttonY = height/4;
-float buttonW = 100;
+float buttonW = 120;
 float buttonH = 100;
 
 
@@ -120,10 +120,14 @@ void messages() {
 }
 
 void mousePressed() {
- if ((mouseX < buttonX + buttonW/2) &&
-    (mouseX > buttonX - buttonW/2) &&
-    (mouseY < buttonY + buttonY/2) &&
-    (mouseY > buttonY - buttonY/2))
- reset();
+ if(over_reset()) reset();
+ }
 
+boolean over_reset() {
+  return (
+  (mouseX < buttonX + buttonW) &&
+  (mouseX >buttonX) &&
+  (mouseY < buttonY + buttonH) &&
+  (mouseY > buttonY) );
+  
 }
