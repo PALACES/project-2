@@ -3,7 +3,7 @@
 
 //// GLOBALS:  pool table, 3 colored balls
 
-String title=  "ELASTIC COLLISIONS  (x5eve.java)";
+String title=  "Project II";
 String news=   "Click 'Reset' to Reset";
 String author=  "Alex Reid";
 
@@ -20,6 +20,7 @@ float buttonY = height/4;
 float buttonW = 80;
 float buttonH = 65;
 
+int score = 0;
 
 //// SETUP:  size and table
 void setup() {
@@ -44,6 +45,7 @@ void setup() {
    yelDX=  random( 1-9 );   redDY=  random( 1-9 );
    bluDX=  random( 1-9 );   bluDY=  random( 1-9 );
    
+   score=0;
  }
 
 
@@ -94,15 +96,17 @@ void collisions() {
   if ( dist( redX,redY, yelX,yelY ) < 30 ) {
     tmp=yelDX;  yelDX=redDX;  redDX=tmp;
     tmp=yelDY;  yelDY=redDY;  redDY=tmp;
+  score = score+1;
    }
    if (dist(redX,redY, bluX, bluY) < 30 ) {
     tmp=bluDX; bluDX=redDX; redDX=tmp;
     tmp=bluDY; bluDY=redDY; redDY=tmp;
-
+  score = score+1;
    }
    if (dist(bluX,bluY, yelX, yelY) < 30 ) {
     tmp=yelDX; yelDX=bluDX; bluDX=tmp;
     tmp=yelDY; yelDY=bluDY; bluDY=tmp;
+   score = score+1;
    }
 }
 
@@ -112,6 +116,9 @@ void show() {
   fill( 255,0,0 );    ellipse( redX,redY, 30,30 );  fill(255); text("1", redX-4, redY+3); 
   fill( 255,255,0 );  ellipse( yelX,yelY, 30,30 );  fill(0); text("2", yelX-4, yelY+3);
   fill( 0,0,255 );    ellipse( bluX,bluY, 30,30 );  fill(255); text("3", bluX-4, bluY+3);
+  fill(0);
+  text(score, 500, 40);
+  
 }
 void messages() {
   fill(0);
