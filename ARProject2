@@ -17,8 +17,8 @@ float bluX, bluY, bluDX, bluDY;
 
 float buttonX = width/4;
 float buttonY = height/4;
-float buttonW = 120;
-float buttonH = 100;
+float buttonW = 80;
+float buttonH = 65;
 
 
 //// SETUP:  size and table
@@ -70,10 +70,11 @@ void table( float left, float top, float right, float bottom ) {
 }
 
 void showButton() {
-  fill(255);
-  rect(buttonX, buttonY, buttonW, buttonH);
-  fill(0);
-  text ("Reset!", buttonX+20, buttonY+40);
+  fill(173, 154, 108);
+  rect(buttonX, buttonY, buttonW, buttonH, 5);
+  fill(255, 215, 113);
+  text ("Reset", buttonX+23, buttonY+38);
+  fill(206, 153, 17);
 }
 //// ACTION:  bounce off walls, collisions
 void bounce() {
